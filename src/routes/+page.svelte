@@ -87,7 +87,7 @@
 	<div class="max-w-5xl mx-auto px-4 sm:px-8 lg:px-10">
 		<!-- Header -->
 		<div class="mb-10 md:mb-12">
-			<h1 class="text-3xl font-bold text-gray-900 dark:text-white">asd</h1>
+			<h1 class="text-3xl font-bold text-gray-900 dark:text-white">ASD</h1>
 			<p class="mt-2 text-gray-600 dark:text-gray-400">GitHub Release 文件下载工具</p>
 		</div>
 
