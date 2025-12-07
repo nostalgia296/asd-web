@@ -1,9 +1,11 @@
 export interface Settings {
 	mirrorUrl: string | null;
+	theme?: 'blue' | 'pink';
 }
 
 const defaultSettings: Settings = {
-	mirrorUrl: null // https://gh-proxy.com
+	mirrorUrl: null, // https://gh-proxy.com
+	theme: 'blue'
 };
 
 const SETTINGS_KEY = 'github-release-downloader-settings';
@@ -60,4 +62,27 @@ export function setMirrorUrl(url: string | null): void {
 	const settings = loadSettings();
 	settings.mirrorUrl = url;
 	saveSettings(settings);
+}
+
+export function setTheme(theme: 'blue' | 'pink'): void {
+	const settings = loadSettings();
+	settings.theme = theme;
+	saveSettings(settings);
+	applyTheme(theme);
+}
+
+export function getTheme(): 'blue' | 'pink' {
+	const settings = loadSettings();
+	return settings.theme || 'blue';
+}
+
+export function applyTheme(theme: 'blue' | 'pink'): void {
+	if (typeof document !== 'undefined') {
+		document.documentElement.setAttribute('data-theme', theme);
+	}
+}
+
+export function initTheme(): void {
+	const theme = getTheme();
+	applyTheme(theme);
 }

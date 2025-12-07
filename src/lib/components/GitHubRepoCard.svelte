@@ -109,7 +109,7 @@
 								href={repoData.html_url}
 								target="_blank"
 								rel="noopener noreferrer"
-								class="text-lg font-semibold text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+								class="text-lg font-semibold text-gray-900 dark:text-white hover:text-[#2563eb] dark:hover:text-[#60a5fa] transition-colors"
 							>
 								{repoData.owner?.login}/{repoData.name}
 							</a>

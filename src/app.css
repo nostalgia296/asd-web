@@ -1,2 +1,150 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
+
+@layer base {
+	:root {
+		--theme-primary: #3b82f6; /* blue-500 */
+		--theme-primary-hover: #2563eb; /* blue-600 */
+		--theme-primary-dark: #60a5fa; /* blue-400 */
+		--theme-primary-dark-hover: #3b82f6; /* blue-500 */
+		--theme-primary-bg: #dbeafe; /* blue-100 */
+		--theme-primary-bg-dark: #1e3a8a3d; /* blue-900/30 */
+		--theme-primary-text: #1e3a8a; /* blue-800 */
+		--theme-primary-text-dark: #60a5fa; /* blue-400 */
+		--theme-ring: #3b82f6; /* blue-500 */
+	}
+
+	[data-theme='pink'] {
+		--theme-primary: #ec4899; /* pink-500 */
+		--theme-primary-hover: #db2777; /* pink-600 */
+		--theme-primary-dark: #f472b6; /* pink-400 */
+		--theme-primary-dark-hover: #ec4899; /* pink-500 */
+		--theme-primary-bg: #fce7f3; /* pink-100 */
+		--theme-primary-bg-dark: #9d174d42; /* pink-900/30 */
+		--theme-primary-text: #be185d; /* pink-800 */
+		--theme-primary-text-dark: #f472b6; /* pink-400 */
+		--theme-ring: #ec4899; /* pink-500 */
+	}
+}
+
+/* Custom utility classes for theming */
+.bg-theme-primary {
+	background-color: var(--theme-primary);
+}
+.hover\:bg-theme-primary-hover:hover {
+	background-color: var(--theme-primary-hover);
+}
+.dark\:bg-theme-primary-dark:is(.dark *) {
+	background-color: var(--theme-primary-dark);
+}
+.dark\:hover\:bg-theme-primary-dark-hover:hover:is(.dark *) {
+	background-color: var(--theme-primary-dark-hover);
+}
+.bg-theme-primary-bg {
+	background-color: var(--theme-primary-bg);
+}
+.dark\:bg-theme-primary-bg-dark:is(.dark *) {
+	background-color: var(--theme-primary-bg-dark);
+}
+.text-theme-primary {
+	color: var(--theme-primary);
+}
+.dark\:text-theme-primary-dark:is(.dark *) {
+	color: var(--theme-primary-dark);
+}
+.text-theme-primary-text {
+	color: var(--theme-primary-text);
+}
+.dark\:text-theme-primary-text-dark:is(.dark *) {
+	color: var(--theme-primary-text-dark);
+}
+.border-theme-ring {
+	border-color: var(--theme-ring);
+}
+.ring-theme-ring {
+	--tw-ring-color: var(--theme-ring);
+}
+
+/* Override Tailwind blue classes when theme is pink */
+html[data-theme='pink'],
+:root[data-theme='pink'] {
+	/* Background colors */
+	& .bg-blue-100,
+	& [class*="bg-blue-100"],
+	& [class*="bg-blue-100\\/"] {
+		background-color: var(--theme-primary-bg) !important;
+	}
+
+	& .dark .dark\:bg-blue-900\/30,
+	&:is(.dark) .dark\:bg-blue-900\/30,
+	& .dark [class*="dark\:bg-blue-900\\/30"],
+	& [class*="dark\:bg-blue-900\\/30"] {
+		background-color: var(--theme-primary-bg-dark) !important;
+	}
+
+	& .hover\:bg-blue-200:hover {
+		background-color: color-mix(in srgb, var(--theme-primary-bg), black 5%) !important;
+	}
+
+	& .dark .dark\:hover\:bg-blue-900\/50:hover,
+	&:is(.dark) .dark\:hover\:bg-blue-900\/50:hover {
+		background-color: color-mix(in srgb, var(--theme-primary-bg-dark), black 10%) !important;
+	}
+
+	/* Primary button colors */
+	& .bg-blue-600,
+	& [class*="bg-blue-600"] {
+		background-color: var(--theme-primary-hover) !important;
+	}
+
+	& .dark .dark\:bg-blue-500,
+	&.dark .dark\:bg-blue-500,
+	& [class*="dark\:bg-blue-500"] {
+		background-color: var(--theme-primary-dark) !important;
+	}
+
+	& .hover\:bg-blue-700:hover {
+		background-color: color-mix(in srgb, var(--theme-primary-hover), black 10%) !important;
+	}
+
+	& .dark .dark\:hover\:bg-blue-600:hover,
+	&.dark .dark\:hover\:bg-blue-600:hover {
+		background-color: color-mix(in srgb, var(--theme-primary-dark), black 10%) !important;
+	}
+
+	/* Input focus colors */
+	& .focus\:ring-blue-500:focus,
+	& [class*="focus\:ring-blue-500"] {
+		--tw-ring-color: var(--theme-ring) !important;
+	}
+
+	& .focus\:border-blue-500:focus,
+	& [class*="focus\:border-blue-500"] {
+		border-color: var(--theme-ring) !important;
+	}
+
+	/* Text colors */
+	& .text-blue-600,
+	& [class*="text-blue-600"] {
+		color: var(--theme-primary) !important;
+	}
+
+	& .text-blue-700 {
+		color: var(--theme-primary-text) !important;
+	}
+
+	& .dark .dark\:text-blue-400,
+	&.dark .dark\:text-blue-400,
+	& [class*="dark\:text-blue-400"] {
+		color: var(--theme-primary-dark) !important;
+	}
+
+	& .hover\:text-blue-600:hover {
+		color: var(--theme-primary) !important;
+	}
+
+	& .dark .hover\:text-blue-400:hover,
+	&.dark .hover\:text-blue-400:hover {
+		color: var(--theme-primary-dark) !important;
+	}
+}

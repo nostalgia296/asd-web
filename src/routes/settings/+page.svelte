@@ -1,13 +1,15 @@
 <script lang="ts">
-	import { loadSettings, saveSettings } from '$lib/utils/settings';
+	import { loadSettings, saveSettings, setTheme, getTheme } from '$lib/utils/settings';
 	import { onMount } from 'svelte';
 
 	let mirrorUrl = $state('');
+	let theme = $state<'blue' | 'pink'>('blue');
 	let saved = $state(false);
 
 	onMount(() => {
 		const settings = loadSettings();
 		mirrorUrl = settings.mirrorUrl || '';
+		theme = settings.theme || 'blue';
 	});
 
 	function handleSubmit(e: Event) {
@@ -18,7 +20,8 @@
 
 		// Save settings
 		saveSettings({
-			mirrorUrl: trimmedUrl || null
+			mirrorUrl: trimmedUrl || null,
+			theme: theme
 		});
 
 		saved = true;
@@ -29,6 +32,11 @@
 
 	function useDefaultMirror() {
 		mirrorUrl = 'https://gh-proxy.com';
+	}
+
+	function handleThemeChange(newTheme: 'blue' | 'pink') {
+		theme = newTheme;
+		setTheme(newTheme);
 	}
 </script>
 
@@ -47,6 +55,31 @@
 		<!-- Settings Form -->
 		<div class="bg-white dark:bg-gray-900 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 p-6 md:p-8 mb-6">
 			<form onsubmit={handleSubmit} class="space-y-6">
+				<!-- Theme Selection -->
+				<div>
+					<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+						主题颜色
+					</label>
+					<div class="flex gap-3">
+						<button
+							type="button"
+							onclick={() => handleThemeChange('blue')}
+							class="flex-1 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-md transition-colors flex items-center justify-center gap-2 {theme === 'blue' ? 'bg-blue-100 dark:bg-blue-900/30 border-blue-300 dark:border-blue-700' : 'bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700'}"
+						>
+							<div class="w-6 h-6 rounded-full bg-blue-500"></div>
+							<span class="font-medium text-gray-900 dark:text-white">蓝色</span>
+						</button>
+						<button
+							type="button"
+							onclick={() => handleThemeChange('pink')}
+							class="flex-1 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-md transition-colors flex items-center justify-center gap-2 {theme === 'pink' ? 'bg-pink-100 dark:bg-pink-900/30 border-pink-300 dark:border-pink-700' : 'bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700'}"
+						>
+							<div class="w-6 h-6 rounded-full bg-pink-500"></div>
+							<span class="font-medium text-gray-900 dark:text-white">粉色</span>
+						</button>
+					</div>
+				</div>
+
 				<!-- Mirror URL -->
 				<div>
 					<label for="mirrorUrl" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
