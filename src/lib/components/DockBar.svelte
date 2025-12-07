@@ -70,25 +70,25 @@
 </script>
 
 <!-- Dock Bar -->
-<div class="fixed bottom-0 md:bottom-4 left-0 right-0 md:left-1/2 md:-translate-x-1/2 z-40 w-full md:w-auto">
+<div class="fixed bottom-0 md:bottom-auto md:left-0 md:top-0 left-0 right-0 z-40 w-full md:w-24">
 	<!-- Background blur effect -->
 	<div class="relative">
-		<div class="absolute inset-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md md:rounded-2xl shadow-lg border-t md:border border-gray-200 dark:border-gray-700"></div>
+		<div class="absolute inset-0 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-lg border-t md:border-r md:border-t-0 border-gray-200 dark:border-gray-700 md:rounded-none md:rounded-r-2xl"></div>
 
 		<!-- Dock content -->
-		<nav class="relative flex items-center justify-around md:space-x-1 md:justify-start px-1 md:px-2 py-2">
+		<nav class="relative flex md:flex-col items-center justify-around md:justify-start px-1 md:px-0 py-2 md:py-8">
 			{#each navItems as item}
 				<a
 					href={item.path}
-					class="flex flex-col items-center px-3 md:px-4 py-1 md:py-2 rounded-xl transition-all duration-200 group {isActive(item.path)
-						? 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400'
-						: 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-blue-600 dark:hover:text-blue-400'}">
+					class="flex md:w-20 flex-col items-center md:justify-center px-3 md:px-0 py-1 md:py-6 transition-all duration-200 group {isActive(item.path)
+						? 'bg-blue-100/60 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 md:rounded-none md:rounded-r-xl md:w-24'
+						: 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-blue-600 dark:hover:text-blue-400 md:rounded-xl'} rounded-xl w-full">
 					<!-- Icon -->
 					<div class="mb-0 md:mb-1 transition-transform group-hover:scale-110">
 						{@html item.icon}
 					</div>
 					<!-- Label -->
-					<span class="text-[10px] md:text-xs font-medium">{item.label}</span>
+					<span class="text-[10px] md:text-xs font-medium md:opacity-0 md:group-hover:opacity-100 md:absolute md:left-full md:ml-3 md:px-2 md:py-1 md:bg-gray-900 md:text-white md:rounded md:whitespace-nowrap md:dark:bg-gray-700 md:transition-opacity md:duration-200">{item.label}</span>
 				</a>
 			{/each}
 
@@ -96,13 +96,13 @@
 			<button
 				type="button"
 				onclick={() => showPresets = !showPresets}
-				class="flex flex-col items-center px-3 md:px-4 py-1 md:py-2 rounded-xl transition-all duration-200 group text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-blue-600 dark:hover:text-blue-400 {showPresets ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : ''}">
+				class="flex md:w-20 flex-col items-center md:justify-center px-3 md:px-0 py-1 md:py-6 transition-all duration-200 group text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-blue-600 dark:hover:text-blue-400 {showPresets ? 'bg-blue-100/60 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 md:rounded-none md:rounded-r-xl md:w-24' : 'rounded-xl md:rounded-xl'} w-full">
 				<div class="mb-0 md:mb-1 transition-transform group-hover:scale-110">
 					<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
 					</svg>
 				</div>
-				<span class="text-[10px] md:text-xs font-medium">预设</span>
+				<span class="text-[10px] md:text-xs font-medium md:opacity-0 md:group-hover:opacity-100 md:absolute md:left-full md:ml-3 md:px-2 md:py-1 md:bg-gray-900 md:text-white md:rounded md:whitespace-nowrap md:dark:bg-gray-700 md:transition-opacity md:duration-200">预设</span>
 			</button>
 		</nav>
 	</div>
@@ -110,7 +110,7 @@
 
 <!-- Presets Popover -->
 {#if showPresets}
-	<div class="fixed bottom-20 md:bottom-24 left-0 right-0 md:left-1/2 md:-translate-x-1/2 z-50 px-4 md:px-0">
+	<div class="fixed bottom-20 md:bottom-auto md:left-24 md:top-4 left-0 right-0 z-50 px-4 md:px-0">
 		<div class="max-w-md mx-auto bg-white dark:bg-gray-900 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
 			<!-- Header -->
 			<div class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
@@ -214,5 +214,5 @@
 	</div>
 {/if}
 
-<!-- Spacer for bottom content -->
-<div class="h-20 md:h-24"></div>
+<!-- Spacer for bottom content on mobile -->
+<div class="h-20 md:h-0"></div>

@@ -83,16 +83,16 @@
 	<title>GitHub Release 下载工具</title>
 </svelte:head>
 
-<div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-6 md:py-8">
-	<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-8 md:py-12">
+	<div class="max-w-5xl mx-auto px-4 sm:px-8 lg:px-10">
 		<!-- Header -->
-		<div class="mb-8">
+		<div class="mb-10 md:mb-12">
 			<h1 class="text-3xl font-bold text-gray-900 dark:text-white">asd</h1>
 			<p class="mt-2 text-gray-600 dark:text-gray-400">GitHub Release 文件下载工具</p>
 		</div>
 
 		<!-- Input Form -->
-		<div class="bg-white dark:bg-gray-900 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 p-4 md:p-6 mb-6 md:mb-8">
+		<div class="bg-white dark:bg-gray-900 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 p-6 md:p-8 mb-8 md:mb-10">
 			<h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">输入仓库信息</h2>
 
 			<!-- Mode Switcher -->
@@ -143,15 +143,17 @@
 							/>
 						</div>
 					</div>
-					<button
-						type="submit"
-						class="w-full md:w-auto px-6 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white font-medium rounded-md transition-colors"
-						disabled={!owner || !repo}
-					>
-						加载 Releases
-					</button>
+					<div class="mt-5">
+						<button
+							type="submit"
+							class="w-full md:w-auto px-6 py-2.5 bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white font-medium rounded-md transition-colors"
+							disabled={!owner || !repo}
+						>
+							<span class="text-sm">加载 Releases</span>
+						</button>
+					</div>
 				{:else}
-					<div>
+					<div class="mb-5">
 						<label for="repoUrl" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
 							GitHub 仓库地址或 owner/repo
 						</label>
@@ -169,10 +171,10 @@
 					</div>
 					<button
 						type="submit"
-						class="w-full md:w-auto px-6 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white font-medium rounded-md transition-colors"
+						class="w-full md:w-auto px-6 py-2.5 bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white font-medium rounded-md transition-colors"
 						disabled={!repoUrl}
 					>
-						加载 Releases
+						<span class="text-sm">加载 Releases</span>
 					</button>
 				{/if}
 			</form>

@@ -26,15 +26,17 @@
  * ```
  */
 declare module '$env/static/private' {
-	export const TERMUX_APP__LEGACY_DATA_DIR: string;
-	export const DEX2OATBOOTCLASSPATH: string;
-	export const GITHUB_TOKEN: string;
 	export const TERMUX_APP__SE_INFO: string;
+	export const GITHUB_TOKEN: string;
+	export const DEX2OATBOOTCLASSPATH: string;
+	export const TERMUX_APP__LEGACY_DATA_DIR: string;
 	export const ASD_CONFIG_PATH: string;
 	export const TERMUX_MAIN_PACKAGE_FORMAT: string;
 	export const USER: string;
+	export const CLAUDE_CODE_ENTRYPOINT: string;
 	export const npm_config_user_agent: string;
 	export const EXTERNAL_STORAGE: string;
+	export const GIT_EDITOR: string;
 	export const npm_node_execpath: string;
 	export const SHLVL: string;
 	export const TERMUX__ROOTFS_DIR: string;
@@ -51,10 +53,12 @@ declare module '$env/static/private' {
 	export const TERMUX_APP__DATA_DIR: string;
 	export const TERMUX__HOME: string;
 	export const pnpm_config_verify_deps_before_run: string;
+	export const _: string;
 	export const TERMUX_VERSION: string;
 	export const npm_config_registry: string;
 	export const ANTHROPIC_BASE_URL: string;
 	export const TERM: string;
+	export const OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE: string;
 	export const ANDROID_DATA: string;
 	export const npm_config_ignore_scripts: string;
 	export const OPENAI_API_BASE: string;
@@ -63,12 +67,14 @@ declare module '$env/static/private' {
 	export const TERMUX__SE_PROCESS_CONTEXT: string;
 	export const npm_package_name: string;
 	export const NODE: string;
+	export const COREPACK_ENABLE_AUTO_PIN: string;
 	export const TERMUX_APK_RELEASE: string;
 	export const ANDROID_I18N_ROOT: string;
 	export const ANDROID_ROOT: string;
 	export const npm_config_frozen_lockfile: string;
-	export const LANG: string;
+	export const NoDefaultCurrentDirectoryInExePath: string;
 	export const LD_PRELOAD: string;
+	export const LANG: string;
 	export const TERMUX__PREFIX: string;
 	export const npm_lifecycle_script: string;
 	export const PREFIX: string;
@@ -83,6 +89,7 @@ declare module '$env/static/private' {
 	export const TERMUX_IS_DEBUGGABLE_BUILD: string;
 	export const npm_config_foreground_scripts: string;
 	export const npm_config_npm_globalconfig: string;
+	export const CLAUDECODE: string;
 	export const npm_config_globalconfig: string;
 	export const PWD: string;
 	export const DISABLE_AUTOUPDATER: string;
@@ -106,7 +113,7 @@ declare module '$env/static/private' {
  * ```
  */
 declare module '$env/static/public' {
-	export const PUBLIC_GITHUB_TOKEN: string;
+	
 }
 
 /**
@@ -123,15 +130,17 @@ declare module '$env/static/public' {
  */
 declare module '$env/dynamic/private' {
 	export const env: {
-		TERMUX_APP__LEGACY_DATA_DIR: string;
-		DEX2OATBOOTCLASSPATH: string;
-		GITHUB_TOKEN: string;
 		TERMUX_APP__SE_INFO: string;
+		GITHUB_TOKEN: string;
+		DEX2OATBOOTCLASSPATH: string;
+		TERMUX_APP__LEGACY_DATA_DIR: string;
 		ASD_CONFIG_PATH: string;
 		TERMUX_MAIN_PACKAGE_FORMAT: string;
 		USER: string;
+		CLAUDE_CODE_ENTRYPOINT: string;
 		npm_config_user_agent: string;
 		EXTERNAL_STORAGE: string;
+		GIT_EDITOR: string;
 		npm_node_execpath: string;
 		SHLVL: string;
 		TERMUX__ROOTFS_DIR: string;
@@ -148,10 +157,12 @@ declare module '$env/dynamic/private' {
 		TERMUX_APP__DATA_DIR: string;
 		TERMUX__HOME: string;
 		pnpm_config_verify_deps_before_run: string;
+		_: string;
 		TERMUX_VERSION: string;
 		npm_config_registry: string;
 		ANTHROPIC_BASE_URL: string;
 		TERM: string;
+		OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE: string;
 		ANDROID_DATA: string;
 		npm_config_ignore_scripts: string;
 		OPENAI_API_BASE: string;
@@ -160,12 +171,14 @@ declare module '$env/dynamic/private' {
 		TERMUX__SE_PROCESS_CONTEXT: string;
 		npm_package_name: string;
 		NODE: string;
+		COREPACK_ENABLE_AUTO_PIN: string;
 		TERMUX_APK_RELEASE: string;
 		ANDROID_I18N_ROOT: string;
 		ANDROID_ROOT: string;
 		npm_config_frozen_lockfile: string;
-		LANG: string;
+		NoDefaultCurrentDirectoryInExePath: string;
 		LD_PRELOAD: string;
+		LANG: string;
 		TERMUX__PREFIX: string;
 		npm_lifecycle_script: string;
 		PREFIX: string;
@@ -180,6 +193,7 @@ declare module '$env/dynamic/private' {
 		TERMUX_IS_DEBUGGABLE_BUILD: string;
 		npm_config_foreground_scripts: string;
 		npm_config_npm_globalconfig: string;
+		CLAUDECODE: string;
 		npm_config_globalconfig: string;
 		PWD: string;
 		DISABLE_AUTOUPDATER: string;
@@ -208,7 +222,6 @@ declare module '$env/dynamic/private' {
  */
 declare module '$env/dynamic/public' {
 	export const env: {
-		PUBLIC_GITHUB_TOKEN: string;
 		[key: `PUBLIC_${string}`]: string | undefined;
 	}
 }

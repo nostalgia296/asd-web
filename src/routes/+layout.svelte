@@ -10,6 +10,8 @@
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
-{@render children()}
+<div class="md:pl-28">
+	{@render children()}
+</div>
 
 <DockBar />
