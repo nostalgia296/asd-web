@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { getRepo } from '$lib/services/github.js';
-	import { onMount } from 'svelte';
 
 	interface Props {
 		owner: string;
@@ -55,7 +54,7 @@
 		}
 	}
 
-	onMount(() => {
+	$effect(() => {
 		loadRepo();
 	});
 </script>
