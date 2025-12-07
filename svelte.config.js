@@ -19,6 +19,9 @@ const config = {
 		prerender: {
 			// 对于 SPA，需要指定入口点
 			entries: ['/']
+		},
+		paths: {
+		    base: "asd-web"
 		}
 	}
 };
