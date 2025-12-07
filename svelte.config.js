@@ -21,7 +21,7 @@ const config = {
 			entries: ['/']
 		},
 		paths: {
-		    base: "asd-web"
+		    base: "/asd-web"
 		}
 	}
 };
