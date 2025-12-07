@@ -1,5 +1,6 @@
 <script lang="ts">
 	import GitHubReleaseCard from '$lib/components/GitHubReleaseCard.svelte';
+	import GitHubRepoCard from '$lib/components/GitHubRepoCard.svelte';
 	import { onMount } from 'svelte';
 	import { browser } from '$app/environment';
 	import {
@@ -166,9 +167,7 @@
 		{#if showReleases}
 			<div>
 				<div class="mb-4 flex items-center justify-between">
-					<h2 class="text-2xl font-bold text-gray-900 dark:text-white">
-						{owner}/{repo} 的 Releases
-					</h2>
+                   <GitHubRepoCard owner={owner} repo={repo}/>
 				</div>
 				<GitHubReleaseCard {owner} {repo} />
 			</div>
