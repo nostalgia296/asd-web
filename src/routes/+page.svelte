@@ -14,6 +14,10 @@
 	let inputMode = $state<'manual' | 'url'>('manual');
 	let repoUrl = $state('');
 
+	// 快照，用于在组件显示后锁定值
+	let ownerSnapshot = $state('');
+	let repoSnapshot = $state('');
+
 	// 从URL参数加载
 	onMount(() => {
 		if (browser) {
@@ -24,7 +28,12 @@
 				inputMode = 'manual';
 				// 延迟加载以确保组件渲染完成
 				setTimeout(() => {
-					loadReleases();
+					if (owner.trim() && repo.trim()) {
+						// 保存快照并显示
+						ownerSnapshot = owner.trim();
+						repoSnapshot = repo.trim();
+						showReleases = true;
+					}
 				}, 100);
 			}
 		}
@@ -32,6 +41,9 @@
 
 	function loadReleases() {
 		if (owner.trim() && repo.trim()) {
+			// 保存快照，锁定当前值
+			ownerSnapshot = owner.trim();
+			repoSnapshot = repo.trim();
 			showReleases = true;
 		}
 	}
@@ -44,7 +56,10 @@
 			if (parsed) {
 				owner = parsed.owner;
 				repo = parsed.repo;
-				loadReleases();
+				// 保存快照
+				ownerSnapshot = parsed.owner;
+				repoSnapshot = parsed.repo;
+				showReleases = true;
 			}
 		} else {
 			loadReleases();
@@ -167,9 +182,9 @@
 		{#if showReleases}
 			<div>
 				<div class="mb-4 flex items-center justify-between">
-                   <GitHubRepoCard owner={owner} repo={repo}/>
+                   <GitHubRepoCard owner={ownerSnapshot} repo={repoSnapshot}/>
 				</div>
-				<GitHubReleaseCard {owner} {repo} />
+				<GitHubReleaseCard owner={ownerSnapshot} repo={repoSnapshot} />
 			</div>
 		{:else}
 			<div class="hidden"></div>
