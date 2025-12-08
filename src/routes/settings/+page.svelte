@@ -4,12 +4,14 @@
 
 	let mirrorUrl = $state('');
 	let theme = $state<'blue' | 'pink'>('blue');
+	let accessToken = $state('');
 	let saved = $state(false);
 
 	onMount(() => {
 		const settings = loadSettings();
 		mirrorUrl = settings.mirrorUrl || '';
 		theme = settings.theme || 'blue';
+		accessToken = settings.accessToken || '';
 	});
 
 	function handleSubmit(e: Event) {
@@ -17,11 +19,13 @@
 
 		// Remove trailing spaces
 		const trimmedUrl = mirrorUrl.trim();
+		const trimmedToken = accessToken.trim();
 
 		// Save settings
 		saveSettings({
 			mirrorUrl: trimmedUrl || null,
-			theme: theme
+			theme: theme,
+			accessToken: trimmedToken || null
 		});
 
 		saved = true;
@@ -118,6 +122,31 @@
 								</button>
 							</div>
 						</div>
+					</div>
+				</div>
+
+				<!-- Access Token -->
+				<div>
+					<label for="accessToken" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+						GitHub访问令牌
+					</label>
+					<input
+						id="accessToken"
+						type="password"
+						placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
+						bind:value={accessToken}
+						class="w-full px-3 py-2.5 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+					/>
+
+					<div class="mt-3">
+						<a
+							href="https://github.com/settings/tokens"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="text-xs text-blue-600 dark:text-blue-400 hover:underline"
+						>
+							生成 Personal Access Token (classic)
+						</a>
 					</div>
 				</div>
 

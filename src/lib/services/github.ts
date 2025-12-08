@@ -45,20 +45,29 @@ export interface GitHubAsset {
 	content_type: string;
 }
 
+import { getAccessToken } from '$lib/utils/settings';
+
 const GITHUB_API_BASE = 'https://api.github.com';
 
 // Get GitHub token from environment (if available)
 const GITHUB_TOKEN = import.meta.env.PUBLIC_GITHUB_TOKEN;
 
-// Common headers
-const headers: Record<string, string> = {
-	'Accept': 'application/vnd.github.v3+json',
-	'User-Agent': 'GitHub-Repo-Card-App'
-};
+// Dynamic headers function to get the latest token
+function getHeaders(): Record<string, string> {
+	const headers: Record<string, string> = {
+		'Accept': 'application/vnd.github.v3+json',
+		'User-Agent': 'GitHub-Repo-Card-App'
+	};
 
-// Add auth token if available
-if (GITHUB_TOKEN) {
-	headers['Authorization'] = `token ${GITHUB_TOKEN}`;
+	// Priority: User setting > Environment variable
+	const userToken = getAccessToken();
+	if (userToken) {
+		headers['Authorization'] = `token ${userToken}`;
+	} else if (GITHUB_TOKEN) {
+		headers['Authorization'] = `token ${GITHUB_TOKEN}`;
+	}
+
+	return headers;
 }
 
 /**
@@ -68,7 +77,7 @@ if (GITHUB_TOKEN) {
  */
 export async function getRepo(owner: string, repo: string): Promise<GitHubRepo> {
 	const response = await fetch(`${GITHUB_API_BASE}/repos/${owner}/${repo}`, {
-		headers
+		headers: getHeaders()
 	});
 
 	if (!response.ok) {
@@ -91,7 +100,7 @@ export async function getRepo(owner: string, repo: string): Promise<GitHubRepo> 
  */
 export async function getUser(username: string): Promise<GitHubUser> {
 	const response = await fetch(`${GITHUB_API_BASE}/users/${username}`, {
-		headers
+		headers: getHeaders()
 	});
 
 	if (!response.ok) {
@@ -118,7 +127,7 @@ export async function getUserRepos(
 ): Promise<GitHubRepo[]> {
 	const response = await fetch(
 		`${GITHUB_API_BASE}/users/${username}/repos?sort=updated&per_page=${per_page}`,
-		{ headers }
+		{ headers: getHeaders() }
 	);
 
 	if (!response.ok) {
@@ -147,7 +156,7 @@ export async function getReleases(
 ): Promise<GitHubRelease[]> {
 	const response = await fetch(
 		`${GITHUB_API_BASE}/repos/${owner}/${repo}/releases?per_page=${per_page}`,
-		{ headers }
+		{ headers: getHeaders() }
 	);
 
 	if (!response.ok) {
