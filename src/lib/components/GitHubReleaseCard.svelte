@@ -234,7 +234,7 @@
 						<!-- Release Notes -->
 						{#if release.body}
 							<div class="mb-6">
-								{#if release.body.length > 2000 && !expandedReleases[release.id]}
+								{#if release.body.length > 900 && !expandedReleases[release.id]}
 									<!-- 收起状态：限制高度并添加渐变遮罩 -->
 									<div class="relative">
 										<div class="prose prose-sm dark:prose-invert max-w-none text-gray-900 dark:text-gray-100
@@ -269,7 +269,7 @@
 											{@html renderedBodies[release.id]}
 										{/if}
 									</div>
-									{#if release.body.length > 2000}
+									{#if release.body.length > 900}
 										<div class="mt-3 text-center">
 											<button onclick={(event) => toggleExpanded(release.id, event)} class="inline-flex items-center text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline">
 												收起
