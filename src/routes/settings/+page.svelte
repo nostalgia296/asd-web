@@ -1,17 +1,25 @@
 <script lang="ts">
 	import { loadSettings, saveSettings, setTheme, getTheme } from '$lib/utils/settings';
+	import WebDAVBackup from '$lib/components/WebDAVBackup.svelte';
 	import { onMount } from 'svelte';
 
 	let mirrorUrl = $state('');
 	let theme = $state<'blue' | 'pink'>('blue');
 	let accessToken = $state('');
 	let saved = $state(false);
+	let activeTab = $state<'general' | 'backup'>('general');
 
 	onMount(() => {
 		const settings = loadSettings();
 		mirrorUrl = settings.mirrorUrl || '';
 		theme = settings.theme || 'blue';
 		accessToken = settings.accessToken || '';
+
+		// 检查 URL 参数
+		const urlParams = new URLSearchParams(window.location.search);
+		if (urlParams.get('tab') === 'backup') {
+			activeTab = 'backup';
+		}
 	});
 
 	function handleSubmit(e: Event) {
@@ -56,8 +64,41 @@
 			<p class="mt-3 text-gray-600 dark:text-gray-400 text-lg">自定义 GitHub Release 下载工具的配置</p>
 		</div>
 
-		<!-- Settings Form -->
-		<div class="bg-white dark:bg-gray-900 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 p-6 md:p-8 mb-6">
+		<!-- Tab Navigation -->
+		<div class="mb-6 border-b border-gray-200 dark:border-gray-700">
+			<nav class="flex space-x-8">
+				<button
+					type="button"
+					onclick={() => activeTab = 'general'}
+					class="py-2 px-1 border-b-2 font-medium text-sm transition-colors {
+						activeTab === 'general'
+							? theme === 'pink'
+								? 'border-pink-500 text-pink-600 dark:text-pink-400'
+								: 'border-blue-500 text-blue-600 dark:text-blue-400'
+							: 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'
+					}"
+				>
+					常规设置
+				</button>
+				<button
+					type="button"
+					onclick={() => activeTab = 'backup'}
+					class="py-2 px-1 border-b-2 font-medium text-sm transition-colors {
+						activeTab === 'backup'
+							? theme === 'pink'
+								? 'border-pink-500 text-pink-600 dark:text-pink-400'
+								: 'border-blue-500 text-blue-600 dark:text-blue-400'
+							: 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'
+					}"
+				>
+					备份恢复
+				</button>
+			</nav>
+		</div>
+
+		<!-- Tab Content -->
+		{#if activeTab === 'general'}
+			<div class="bg-white dark:bg-gray-900 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 p-6 md:p-8 mb-6">
 			<form onsubmit={handleSubmit} class="space-y-6">
 				<!-- Theme Selection -->
 				<div>
@@ -164,6 +205,9 @@
 					{/if}
 				</div>
 			</form>
-		</div>
+			</div>
+		{:else if activeTab === 'backup'}
+			<WebDAVBackup />
+		{/if}
 	</div>
 </div>
