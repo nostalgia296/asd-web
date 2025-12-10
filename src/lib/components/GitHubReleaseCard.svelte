@@ -3,6 +3,7 @@
 	import { marked } from 'marked';
 	import DOMPurify from 'dompurify';
 	import { getMirrorUrl } from '$lib/utils/settings';
+	import { tick } from 'svelte';
 
 	interface Props {
 		owner: string;
@@ -48,6 +49,42 @@
 
 	// Cache for rendered markdown
 	let renderedBodies = $state<Record<string, string>>({});
+
+	// Track expanded state for releases with long bodies
+	let expandedReleases = $state<Record<string, boolean>>({});
+	// Track scroll positions when expanding, to restore when collapsing
+	let expandScrollPositions = $state<Record<string, number>>({});
+
+	// Toggle expanded state with scroll position preservation
+	async function toggleExpanded(releaseId: string, event: MouseEvent) {
+		// Get the button element and its release card
+		const button = event.currentTarget as HTMLElement;
+		const releaseCard = button.closest('.release-card') as HTMLElement | null;
+
+		const isCurrentlyExpanded = expandedReleases[releaseId];
+
+		if (!isCurrentlyExpanded) {
+			// About to expand - save current scroll position
+			expandScrollPositions[releaseId] = window.scrollY;
+		}
+
+		// Toggle the expanded state
+		expandedReleases[releaseId] = !isCurrentlyExpanded;
+
+		// Wait for DOM to update
+		await tick();
+
+		// After DOM update, handle scroll position
+		if (isCurrentlyExpanded && expandScrollPositions[releaseId] !== undefined) {
+			// Was expanded, now collapsing - restore to expand position
+			const savedPosition = expandScrollPositions[releaseId];
+			// Use smooth scroll for better UX
+			window.scrollTo({
+				top: savedPosition,
+				behavior: 'smooth'
+			});
+		}
+	}
 
 	// Render markdown bodies when releases change
 	$effect(() => {
@@ -149,7 +186,7 @@
 	{:else if releases.length > 0}
 		<div class="space-y-6">
 			{#each releases as release, index}
-				<div class="bg-white dark:bg-gray-900 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-lg transition-shadow">
+				<div class="release-card bg-white dark:bg-gray-900 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-lg transition-shadow">
 					<div class="p-6">
 						<!-- Release Header -->
 						<div class="flex items-start justify-between mb-4">
@@ -197,22 +234,51 @@
 						<!-- Release Notes -->
 						{#if release.body}
 							<div class="mb-6">
-								<div class="prose prose-sm dark:prose-invert max-w-none text-gray-900 dark:text-gray-100
-									prose-code:bg-gray-100 prose-code:dark:bg-gray-800 prose-code:px-1 prose-code:rounded prose-code:text-sm
-									prose-pre:bg-gray-100 prose-pre:dark:bg-gray-900 prose-pre:p-4 prose-pre:rounded-lg prose-pre:overflow-x-auto
-									prose-blockquote:border-l-4 prose-blockquote:border-gray-300 prose-blockquote:dark:border-gray-600 prose-blockquote:pl-4 prose-blockquote:italic
-									prose-table:border-collapse prose-table:w-full prose-th:border prose-th:p-2 prose-td:border prose-td:p-2
-									prose-th:bg-gray-50 prose-th:dark:bg-gray-800">
-									{#if renderedBodies[release.id] !== undefined}
-										{@html renderedBodies[release.id]}
-									{/if}
-								</div>
-								{#if release.body.length > 2000}
-									<div class="mt-2">
-										<a href={release.html_url} target="_blank" rel="noopener noreferrer" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">
-											查看完整的 release notes →
-										</a>
+								{#if release.body.length > 2000 && !expandedReleases[release.id]}
+									<!-- 收起状态：限制高度并添加渐变遮罩 -->
+									<div class="relative">
+										<div class="prose prose-sm dark:prose-invert max-w-none text-gray-900 dark:text-gray-100
+											prose-code:bg-gray-100 prose-code:dark:bg-gray-800 prose-code:px-1 prose-code:rounded prose-code:text-sm
+											prose-pre:bg-gray-100 prose-pre:dark:bg-gray-900 prose-pre:p-4 prose-pre:rounded-lg prose-pre:overflow-x-auto
+											prose-blockquote:border-l-4 prose-blockquote:border-gray-300 prose-blockquote:dark:border-gray-600 prose-blockquote:pl-4 prose-blockquote:italic
+											prose-table:border-collapse prose-table:w-full prose-th:border prose-th:p-2 prose-td:border prose-td:p-2
+											prose-th:bg-gray-50 prose-th:dark:bg-gray-800 max-h-96 overflow-hidden">
+											{#if renderedBodies[release.id] !== undefined}
+												{@html renderedBodies[release.id]}
+											{/if}
+										</div>
+										<div class="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-b from-transparent to-white dark:to-gray-900 pointer-events-none"></div>
 									</div>
+									<div class="mt-3 text-center">
+										<button onclick={(event) => toggleExpanded(release.id, event)} class="inline-flex items-center text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline">
+											展开查看更多
+											<svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+											</svg>
+										</button>
+									</div>
+								{:else}
+									<!-- 展开状态或无限制 -->
+									<div class="prose prose-sm dark:prose-invert max-w-none text-gray-900 dark:text-gray-100
+										prose-code:bg-gray-100 prose-code:dark:bg-gray-800 prose-code:px-1 prose-code:rounded prose-code:text-sm
+										prose-pre:bg-gray-100 prose-pre:dark:bg-gray-900 prose-pre:p-4 prose-pre:rounded-lg prose-pre:overflow-x-auto
+										prose-blockquote:border-l-4 prose-blockquote:border-gray-300 prose-blockquote:dark:border-gray-600 prose-blockquote:pl-4 prose-blockquote:italic
+										prose-table:border-collapse prose-table:w-full prose-th:border prose-th:p-2 prose-td:border prose-td:p-2
+										prose-th:bg-gray-50 prose-th:dark:bg-gray-800">
+										{#if renderedBodies[release.id] !== undefined}
+											{@html renderedBodies[release.id]}
+										{/if}
+									</div>
+									{#if release.body.length > 2000}
+										<div class="mt-3 text-center">
+											<button onclick={(event) => toggleExpanded(release.id, event)} class="inline-flex items-center text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline">
+												收起
+												<svg class="w-4 h-4 ml-1 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+													<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+												</svg>
+											</button>
+										</div>
+									{/if}
 								{/if}
 							</div>
 						{/if}
