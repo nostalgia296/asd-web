@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { base } from '$app/paths';
 	import { loadSettings, saveSettings } from '$lib/utils/settings';
 	import { savePresets } from '$lib/utils/presets';
 	import {
@@ -209,7 +210,7 @@
 			showMessage('备份恢复成功！页面将在3秒后刷新', 'success');
 
 			setTimeout(() => {
-				window.location.reload();
+				window.location.href = `${ base }`;
 			}, 3000);
 		} catch (error) {
 			showMessage(`恢复失败: ${error instanceof Error ? error.message : '未知错误'}`, 'error');
