@@ -101,10 +101,10 @@
 			<div class="bg-white dark:bg-gray-900 rounded-xl shadow-md border border-gray-200 dark:border-gray-700 p-6 md:p-8 mb-6">
 			<form onsubmit={handleSubmit} class="space-y-6">
 				<!-- Theme Selection -->
-				<div>
-					<label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+				<fieldset>
+					<legend class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
 						主题颜色
-					</label>
+					</legend>
 					<div class="flex gap-3">
 						<button
 							type="button"
@@ -123,7 +123,7 @@
 							<span class="font-medium text-gray-900 dark:text-white">粉色</span>
 						</button>
 					</div>
-				</div>
+				</fieldset>
 
 				<!-- Mirror URL -->
 				<div>

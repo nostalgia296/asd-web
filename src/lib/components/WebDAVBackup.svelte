@@ -253,6 +253,7 @@
 				<button
 					type="button"
 					onclick={() => debugMode = false}
+					aria-label="关闭调试信息"
 					class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
 					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>

@@ -250,7 +250,7 @@
 										<div class="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-b from-transparent to-white dark:to-gray-900 pointer-events-none"></div>
 									</div>
 									<div class="mt-3 text-center">
-										<button onclick={(event) => toggleExpanded(release.id, event)} class="inline-flex items-center text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline">
+										<button onclick={(event) => toggleExpanded(String(release.id), event)} class="inline-flex items-center text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline">
 											展开查看更多
 											<svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
@@ -271,7 +271,7 @@
 									</div>
 									{#if release.body.length > 100}
 										<div class="mt-3 text-center">
-											<button onclick={(event) => toggleExpanded(release.id, event)} class="inline-flex items-center text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline">
+											<button onclick={(event) => toggleExpanded(String(release.id), event)} class="inline-flex items-center text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline">
 												收起
 												<svg class="w-4 h-4 ml-1 transform rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 													<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
