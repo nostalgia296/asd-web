@@ -53,7 +53,7 @@ export function getMirrorUrl(): string | null {
 
 	// Ensure the mirror URL ends with /
 	let url = settings.mirrorUrl;
-	if (!url.endsWith('/')) {
+	if (!url.endsWith('/') && !url.endsWith('=')) {
 		url += '/';
 	}
 
