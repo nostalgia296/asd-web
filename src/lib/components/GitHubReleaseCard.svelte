@@ -189,12 +189,25 @@
 				<div class="release-card bg-white dark:bg-gray-900 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-lg transition-shadow">
 					<div class="p-6">
 						<!-- Release Header -->
-						<div class="flex items-start justify-between mb-4">
-							<div class="flex-1">
-								<div class="flex items-center space-x-3">
-									<h3 class="text-xl font-bold text-gray-900 dark:text-white">
-										{release.name || release.tag_name}
-									</h3>
+						<div class="mb-4">
+							<!-- First row: Title and avatar -->
+							<div class="flex items-start justify-between mb-2">
+								<h3 class="text-xl font-bold text-gray-900 dark:text-white flex-1 pr-3 break-words" title={release.name || release.tag_name}>
+									{release.name || release.tag_name}
+								</h3>
+								{#if release.author?.avatar_url}
+									<img
+										src={release.author.avatar_url}
+										alt={release.author.login}
+										title={`发布者: ${release.author.login}`}
+										class="w-10 h-10 rounded-full flex-shrink-0 ml-3"
+									/>
+								{/if}
+							</div>
+							<!-- Second row: Tags and meta info -->
+							<div class="flex items-center flex-wrap gap-2 mt-3">
+								<!-- Tags -->
+								<div class="flex items-center gap-2">
 									{#if release.prerelease}
 										<span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300">
 											预发布
@@ -211,24 +224,17 @@
 										</span>
 									{/if}
 								</div>
-								<div class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+								<!-- Meta info -->
+								<div class="flex items-center flex-wrap gap-2 text-sm text-gray-500 dark:text-gray-400">
 									<span>标签: {release.tag_name}</span>
-									<span class="mx-2">•</span>
+									<span class="text-gray-300 dark:text-gray-600">•</span>
 									<span>发布于 {formatDate(release.published_at)}</span>
-									<span class="mx-2">•</span>
+									<span class="text-gray-300 dark:text-gray-600">•</span>
 									<a href={release.html_url} target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 hover:underline">
 										在 GitHub 查看
 									</a>
 								</div>
 							</div>
-							{#if release.author?.avatar_url}
-								<img
-									src={release.author.avatar_url}
-									alt={release.author.login}
-									title={`发布者: ${release.author.login}`}
-									class="w-10 h-10 rounded-full flex-shrink-0"
-								/>
-							{/if}
 						</div>
 
 						<!-- Release Notes -->

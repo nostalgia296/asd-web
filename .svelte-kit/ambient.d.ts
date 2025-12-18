@@ -27,9 +27,9 @@
  */
 declare module '$env/static/private' {
 	export const GITHUB_TOKEN: string;
-	export const TERMUX_APP__SE_INFO: string;
 	export const DEX2OATBOOTCLASSPATH: string;
 	export const TERMUX_APP__LEGACY_DATA_DIR: string;
+	export const TERMUX_APP__SE_INFO: string;
 	export const ASD_CONFIG_PATH: string;
 	export const TERMUX_MAIN_PACKAGE_FORMAT: string;
 	export const USER: string;
@@ -49,14 +49,14 @@ declare module '$env/static/private' {
 	export const BOOTCLASSPATH: string;
 	export const npm_config_engine_strict: string;
 	export const COLORTERM: string;
-	export const TMPDIR: string;
 	export const TERMUX_APP__DATA_DIR: string;
+	export const TMPDIR: string;
 	export const TERMUX__HOME: string;
 	export const pnpm_config_verify_deps_before_run: string;
 	export const TERMUX_VERSION: string;
 	export const npm_config_registry: string;
-	export const TERM: string;
 	export const ANTHROPIC_BASE_URL: string;
+	export const TERM: string;
 	export const ANDROID_DATA: string;
 	export const npm_config_ignore_scripts: string;
 	export const OPENAI_API_BASE: string;
@@ -65,18 +65,18 @@ declare module '$env/static/private' {
 	export const TERMUX__SE_PROCESS_CONTEXT: string;
 	export const npm_package_name: string;
 	export const NODE: string;
-	export const ANDROID_ROOT: string;
 	export const ANDROID_I18N_ROOT: string;
+	export const ANDROID_ROOT: string;
 	export const TERMUX_APK_RELEASE: string;
 	export const npm_config_frozen_lockfile: string;
-	export const LANG: string;
 	export const LD_PRELOAD: string;
 	export const TERMUX__PREFIX: string;
+	export const LANG: string;
 	export const npm_lifecycle_script: string;
 	export const PREFIX: string;
-	export const ANDROID_TZDATA_ROOT: string;
-	export const ANTHROPIC_AUTH_TOKEN: string;
 	export const SHELL: string;
+	export const ANTHROPIC_AUTH_TOKEN: string;
+	export const ANDROID_TZDATA_ROOT: string;
 	export const npm_package_version: string;
 	export const npm_lifecycle_event: string;
 	export const npm_config_verify_deps_before_run: string;
@@ -126,9 +126,9 @@ declare module '$env/static/public' {
 declare module '$env/dynamic/private' {
 	export const env: {
 		GITHUB_TOKEN: string;
-		TERMUX_APP__SE_INFO: string;
 		DEX2OATBOOTCLASSPATH: string;
 		TERMUX_APP__LEGACY_DATA_DIR: string;
+		TERMUX_APP__SE_INFO: string;
 		ASD_CONFIG_PATH: string;
 		TERMUX_MAIN_PACKAGE_FORMAT: string;
 		USER: string;
@@ -148,14 +148,14 @@ declare module '$env/dynamic/private' {
 		BOOTCLASSPATH: string;
 		npm_config_engine_strict: string;
 		COLORTERM: string;
-		TMPDIR: string;
 		TERMUX_APP__DATA_DIR: string;
+		TMPDIR: string;
 		TERMUX__HOME: string;
 		pnpm_config_verify_deps_before_run: string;
 		TERMUX_VERSION: string;
 		npm_config_registry: string;
-		TERM: string;
 		ANTHROPIC_BASE_URL: string;
+		TERM: string;
 		ANDROID_DATA: string;
 		npm_config_ignore_scripts: string;
 		OPENAI_API_BASE: string;
@@ -164,18 +164,18 @@ declare module '$env/dynamic/private' {
 		TERMUX__SE_PROCESS_CONTEXT: string;
 		npm_package_name: string;
 		NODE: string;
-		ANDROID_ROOT: string;
 		ANDROID_I18N_ROOT: string;
+		ANDROID_ROOT: string;
 		TERMUX_APK_RELEASE: string;
 		npm_config_frozen_lockfile: string;
-		LANG: string;
 		LD_PRELOAD: string;
 		TERMUX__PREFIX: string;
+		LANG: string;
 		npm_lifecycle_script: string;
 		PREFIX: string;
-		ANDROID_TZDATA_ROOT: string;
-		ANTHROPIC_AUTH_TOKEN: string;
 		SHELL: string;
+		ANTHROPIC_AUTH_TOKEN: string;
+		ANDROID_TZDATA_ROOT: string;
 		npm_package_version: string;
 		npm_lifecycle_event: string;
 		npm_config_verify_deps_before_run: string;
