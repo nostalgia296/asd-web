@@ -15,7 +15,11 @@ export class WebDAVService {
 	private config: WebDAVConfig;
 
 	constructor(config: WebDAVConfig) {
-		this.config = config;
+		// 确保 baseUrl 以斜杠结尾
+		this.config = {
+			...config,
+			baseUrl: config.baseUrl.endsWith('/') ? config.baseUrl : `${config.baseUrl}/`
+		};
 	}
 
 	private getAuthHeaders(): HeadersInit {
@@ -246,7 +250,7 @@ export class WebDAVService {
 					const href = hrefElement.textContent || '';
 					const fileName = href.includes('/') ? href.substring(href.lastIndexOf('/') + 1) : href;
 
-					// Skip directories and empty names，只关注备份文件
+					// 只关注备份文件
 					if (fileName && (fileName.startsWith('backup-') && fileName.endsWith('.json'))) {
 						let size = 0;
 						let lastModified = '';
