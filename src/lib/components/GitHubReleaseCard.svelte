@@ -19,7 +19,8 @@
 	let downloading = $state<Record<string, boolean>>({});
 
 	const markedInstance = new Marked({
-		breaks: true
+		breaks: true,
+		gfm: true
 	}).use(markedAlert());
 
 	function formatDate(dateString: string): string {
