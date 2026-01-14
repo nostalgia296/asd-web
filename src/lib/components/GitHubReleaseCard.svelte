@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { getReleases, downloadAsset, type GitHubRelease } from '$lib/services/github';
-	import { marked } from 'marked';
+	import { Marked } from 'marked';
+	import markedAlert from 'marked-alert';
 	import DOMPurify from 'dompurify';
 	import { getMirrorUrl } from '$lib/utils/settings';
 	import { tick } from 'svelte';
@@ -17,10 +18,9 @@
 	let releases = $state<GitHubRelease[]>([]);
 	let downloading = $state<Record<string, boolean>>({});
 
-	marked.use({
-		breaks: true,
-		gfm: true
-	});
+	const markedInstance = new Marked({
+		breaks: true
+	}).use(markedAlert());
 
 	function formatDate(dateString: string): string {
 		const date = new Date(dateString);
@@ -94,7 +94,7 @@
 				for (const release of releases) {
 					if (release.body) {
 						try {
-							const html = await marked.parse(release.body);
+							const html = await markedInstance.parse(release.body);
 							cache[release.id] = DOMPurify.sanitize(html);
 						} catch (e) {
 							console.error('Failed to render markdown:', e);
