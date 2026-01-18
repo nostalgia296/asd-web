@@ -388,9 +388,9 @@
 					<h3 class="text-lg font-medium text-gray-900 dark:text-white">可用备份</h3>
 					<div class="space-y-2">
 						{#each backupList as backup}
-							<div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-								<div class="flex-1">
-									<div class="font-medium text-gray-900 dark:text-white">{backup.name}</div>
+							<div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800 rounded-lg gap-3">
+								<div class="flex-1 min-w-0">
+									<div class="font-medium text-gray-900 dark:text-white truncate" title="{backup.name}">{backup.name}</div>
 									<div class="text-sm text-gray-500 dark:text-gray-400">
 										{formatFileSize(backup.size)} • {formatDate(backup.lastModified)}
 									</div>
@@ -399,7 +399,7 @@
 									type="button"
 									onclick={() => restoreBackup(backup.name)}
 									disabled={isRestoring}
-									class="px-4 py-2 bg-orange-600 hover:bg-orange-700 dark:bg-orange-500 dark:hover:bg-orange-600 disabled:bg-gray-400 text-white text-sm font-medium rounded-md transition-colors"
+									class="flex-shrink-0 px-4 py-2 bg-orange-600 hover:bg-orange-700 dark:bg-orange-500 dark:hover:bg-orange-600 disabled:bg-gray-400 text-white text-sm font-medium rounded-md transition-colors"
 								>
 									{isRestoring ? '恢复中...' : '恢复'}
 								</button>
